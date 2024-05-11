@@ -17,6 +17,7 @@ It currently supports:
 * Getting current device states
 * Setting either colors, or whites (in bulbs)
 * Setting colors (+ WW + CW) in compatible devices
+* Setting brightness and temperature in compatible devices
 * Sending preset functions
 
 ##### Tasks:
@@ -31,6 +32,7 @@ Device types are:
 * 2: RGB+WW+CW
 * 3: Bulb (v.4+)
 * 4: Bulb (v.3-)
+* 5: CCT
   (Higher numbers reserved for future use)
 
 Functions accept integers 0-255 as parameters.
