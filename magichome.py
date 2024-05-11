@@ -52,7 +52,7 @@ class MagicHomeApi:
             self.send_bytes(0x81, 0x8A, 0x8B, 0x96)
             return self.s.recv(14)
 
-    def update_device(self, r=0, g=0, b=0, white1=None, white2=None):
+    def update_device(self, r=0, g=0, b=0, white1=None, white2=None, brightness = None):
         """Updates a device based upon what we're sending to it.
 
         Values are excepted as integers between 0-255.
@@ -105,6 +105,11 @@ class MagicHomeApi:
                            self.check_number_range(g),
                            self.check_number_range(b),
                            0x00, 0xf0, 0xaa]
+                self.send_bytes(*(message+[self.calculate_checksum(message)]))
+        elif self.device_type == 5:
+            #Update the brightness/temperature of a CCT lightstrip
+            if white1 != None and brightness != None:
+                message = [0x31, self.check_number_range(brightness), 0x00, self.check_number_range(white1),0x00,0x0f, 0x0f]
                 self.send_bytes(*(message+[self.calculate_checksum(message)]))
         else:
             # Incompatible device received
